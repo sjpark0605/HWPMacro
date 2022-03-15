@@ -4,13 +4,11 @@ import pandas as pd
 def editHWP(excelPath, hwpFile):
 
     excel = pd.read_excel(excelPath)
-    print(excel)
 
     hwp = win32.Dispatch("HWPFrame.HwpObject")
     hwp.Open(hwpFile)
 
     field_list = [i for i in hwp.GetFieldList().split("\x02")]
-    print(field_list)
 
     # Select and Copy All Text
     hwp.Run('SelectAll')
