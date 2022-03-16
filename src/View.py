@@ -8,13 +8,21 @@ class View:
         self.root.geometry(dimension)
         self.pathMap = {}      
 
-    def generateField(self, labelContent, buttonText, action, row):
+    def addField(self, labelContent, buttonText, action, row):
         fieldLabel = self.__generateFieldLabel(labelContent)
         pathFrame = self.__generateFrame()
-        pathLabel = self.__generateFieldLabel(pathFrame)
-        button = self.__generateButton(buttonText, action)
+        pathLabel = self.__generatePathLabel(pathFrame)
+
+        button = self.__generateButton(buttonText, lambda: self.__fdClickHandler(action, pathLabel))
 
         self.__renderElements(fieldLabel, pathFrame, pathLabel, button, row)
+
+    def addRunButton(self, buttonText, action, row):
+        button = self.__generateButton(buttonText, action)
+        button.grid(row = row, column = 2)
+
+    def run(self):
+        self.root.mainloop()
 
     def __generateFieldLabel(self, labelContent):
         return Label(
@@ -32,13 +40,17 @@ class View:
             pady = 1
         )
 
-    def __generateFieldLabel(self, frame):
+    def __generatePathLabel(self, frame):
         return Label(
             frame,
             bg = "white",
             width = 50
         )
     
+    def __fdClickHandler(self, action, pathLabel):
+        filePath = action()
+        pathLabel.config(text = filePath)
+
     def __generateButton(self, text, action):
         return Button(
             self.root,
@@ -46,7 +58,7 @@ class View:
             command = action,
             padx = 10
         )
-
+        
     def __renderElements(self, fieldLabel, pathFrame, pathLabel, button, row):
         fieldLabel.grid(row = row, column = 0)
         pathFrame.grid(row = row, column = 1)

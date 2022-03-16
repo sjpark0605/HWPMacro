@@ -3,7 +3,7 @@ from Logic import editHWP
 
 def onHWPButtonClick():
     filetypes = (
-        ('한글 파일', '*.hwp, *.hwpx'),
+        ('한글 파일', '.hwp .hwpx'),
         ('모든 파일', '*.*')
     )
 
@@ -17,7 +17,7 @@ def onHWPButtonClick():
 
 def onExcelButtonClick():
         filetypes = (
-            ('엑셀 파일', '*.xlsx'),
+            ('엑셀 파일', '.xls .xlsx'),
             ('모든 파일', '*.*')
         )
 
